@@ -95,24 +95,22 @@ def tau_from_si(value_pa, system):
 st.set_page_config(page_title="Double Lap Joint Explorer", layout="wide")
 st.title("Double lap joint shear-stress explorer")
 
-st.markdown(r"""
-Modelo basado en:
+st.subheader("Modelo basado en")
 
-\[
+st.latex(r"""
 \tau(x)=\frac{P\omega}{4b\sinh(\omega l/2)}\cosh(\omega x)
 +\left[
 \frac{P\omega}{4b\cosh(\omega l/2)}
 \left(\frac{2E_ot_o-E_it_i}{2E_ot_o+E_it_i}\right)
-+\frac{(\alpha_i-\alpha_o)\Delta T \, \omega}
++\frac{(\alpha_i-\alpha_o)\Delta T\,\omega}
 {\left(\frac{1}{E_ot_o}+\frac{2}{E_it_i}\right)\cosh(\omega l/2)}
 \right]\sinh(\omega x)
-\]
+""")
 
-con
+st.write("con")
 
-\[
+st.latex(r"""
 \omega=\sqrt{\frac{G}{h}\left(\frac{1}{E_ot_o}+\frac{2}{E_it_i}\right)}
-\]
 """)
 
 with st.sidebar:
@@ -248,16 +246,8 @@ with col2:
     st.metric("omega [1/m]", f"{w:.3e}")
     st.metric("G/h [SI]", f"{(params['G'] / params['h']):.3e}")
 
-st.subheader("Impact of h")
-st.markdown(r"""
-Subiendo **h** baja \(\omega\), porque
+st.subheader("Variables Sensitivity")
 
-\[
-\omega \propto \sqrt{\frac{G}{h}}
-\]
-
-Así que un adhesivo más grueso suele repartir mejor la carga y bajar la concentración de cortante en los extremos.
-""")
 
 sens = relative_sensitivity(params, frac=sens_frac_pct / 100.0)
 names = [k for k, _ in sens]
