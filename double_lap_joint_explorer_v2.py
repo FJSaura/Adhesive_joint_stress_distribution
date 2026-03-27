@@ -97,7 +97,7 @@ st.title("Double lap joint shear-stress explorer")
 
 st.subheader("Model based in Shigley's Mechanical Engineering Design 8th Ed: Chapter 9-9; Eq 9-7")
 
-st.image("img/Diagram.png", caption="Double lap joint geometry")
+st.image("Diagram.png", caption="Double lap joint geometry")
 
 st.latex(r"""
 \tau(x)=\frac{P\omega}{4b\sinh(\omega l/2)}\cosh(\omega x)
