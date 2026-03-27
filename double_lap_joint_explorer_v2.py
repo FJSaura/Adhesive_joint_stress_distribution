@@ -95,7 +95,9 @@ def tau_from_si(value_pa, system):
 st.set_page_config(page_title="Double Lap Joint Explorer", layout="wide")
 st.title("Double lap joint shear-stress explorer")
 
-st.subheader("Modelo basado en")
+st.subheader("Model based in Shigley's Mechanical Engineering Design 8th Ed: Chapter 9-9; Eq 9-7")
+
+st.image("img/Diagram.png", caption="Double lap joint geometry")
 
 st.latex(r"""
 \tau(x)=\frac{P\omega}{4b\sinh(\omega l/2)}\cosh(\omega x)
@@ -125,13 +127,13 @@ with st.sidebar:
         stress_label = "MPa"
         alpha_label = "µm/mK"
         default_vals = {
-            "b": 25.0, "l": 50.0, "to": 2.0, "ti": 2.0, "h": 0.20,
-            "Eo": 70.0, "Ei": 70.0, "G": 0.80, "P": 10000.0,
-            "dT": 0.0, "alpha_o": 23.0, "alpha_i": 23.0,
+            "b": 1, "l": 15, "to": 0.7, "ti": 1.6, "h": 0.3,
+            "Eo": 2.6, "Ei": 73.0, "G": 0.90, "P": 0,
+            "dT": 100, "alpha_o": 88.4, "alpha_i": 10,
         }
         ranges = {
-            "b": (5.0, 100.0, 1.0),
-            "l": (5.0, 200.0, 1.0),
+            "b": (1.0, 100.0, 1.0),
+            "l": (1.0, 200.0, 1.0),
             "to": (0.2, 10.0, 0.1),
             "ti": (0.2, 10.0, 0.1),
             "h": (0.01, 2.0, 0.01),
@@ -155,8 +157,8 @@ with st.sidebar:
             "dT": 0.0, "alpha_o": 12.8, "alpha_i": 12.8,
         }
         ranges = {
-            "b": (0.2, 5.0, 0.01),
-            "l": (0.2, 10.0, 0.01),
+            "b": (0.01, 5.0, 0.01),
+            "l": (0.01, 10.0, 0.01),
             "to": (0.01, 0.5, 0.005),
             "ti": (0.01, 0.5, 0.005),
             "h": (0.001, 0.1, 0.001),
@@ -267,13 +269,9 @@ st.dataframe(
 
 with st.expander("Notes"):
     st.markdown("""
-- Ahora puedes elegir entre **Sliders** y **Manual values**.
-- También puedes cambiar entre **SI** y **Imperial**.
-- En modo imperial, las entradas geométricas están en `in`, la fuerza en `lbf` y los módulos en `psi`.
-- La tensión de salida se muestra en `psi` cuando trabajas en imperial.
-- El término de expansión térmica se introduce como microdeformación por grado.
-- Este ranking es local. Cambia con el punto de operación.
-- Si `dT = 0` o `alpha_i = alpha_o`, el término térmico desaparece.
-- Si quieres estudiar solo efecto térmico, pon `P = 0`.
-- Si quieres estudiar solo efecto mecánico, pon `dT = 0`.
+- Formulation checked with bibliography examples
+- This is a local ranking. Changes with the joint design and operation point.
+- If `dT = 0` or `alpha_i = alpha_o`, the thermal term disappears.
+- If only thermal effect -> `P = 0`.
+- If only mechanical effec ->`dT = 0`.
 """)
